@@ -1,24 +1,12 @@
 import os 
 from typing import List
+import json
 
 '''
-Step 1: Basics functionlaity 
-'''
+Step 2: A bit more advanced
 
-# Create a dictionary with our file structure 
-file_structure = {
-    "src/": {
-        "models/": None,
-        "routes/": None,
-        "services/": None,
-        "app.py": None
-    },
-    ".gitignore": None,
-    "dockerfile": None,
-    "main.py": None,
-    "readme.md": None,
-    "requirements.txt": None
-}
+Still needs some exception handling in certain places
+'''
 
 def create_folder(path: str, folder_name: str):
     '''
@@ -67,6 +55,53 @@ def generate_folder_structure(path: str, structure_dict: dict):
             generate_component(path, key)
             generate_folder_structure(f"{path}/{key}", structure_dict[key])
 
-if __name__ in "__main__::":
-    create_folder('.', 'my_project')
-    generate_folder_structure("./my_project", file_structure)
+def get_template_names():
+    if (os.path.exists("templates")):
+        return os.listdir("templates")
+    
+    return []
+
+def display_options(templates: List[str]):    
+    if len(templates) == 0:
+        print("No templates found")
+        return
+    
+    print("Which template would you like to use: ")
+
+    for index, template in enumerate(templates, start=1):
+        print(f"{index}. {template}")
+
+def get_template(path: str, file_name: str) -> dict:
+    with open(f"{path}/{file_name}", "r") as file:
+        return json.load(file)
+    
+
+if __name__ in "__main__:":
+    TEMPLATE_PATH = "templates"    
+
+    templates = get_template_names()
+
+    # Display menu and get the users choice
+    display_options(templates)
+    template_choice = int(input(">> "))
+
+    # Validate that the value is in the correct range 
+    if (template_choice < 1 or template_choice > len(templates)):
+        print("Invalid choice")
+        exit()
+
+    # Get the template    
+    template_name = templates[template_choice - 1]
+    template_structure = get_template(TEMPLATE_PATH, template_name)
+
+    # Get folder path for new project
+    path = input("Enter the path for the new project: ")
+    project_name = input("Enter the name of the project: ")
+
+    create_folder(path, project_name)
+
+    # Generate the template
+    generate_folder_structure(f"{path}/{project_name}", template_structure)
+
+
+

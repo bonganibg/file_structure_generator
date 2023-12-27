@@ -1,0 +1,13 @@
+{
+    "src/": {
+        "models/": null,
+        "routes/": null,
+        "services/": null,
+        "app.py": null
+    },
+    ".gitignore": null,
+    "dockerfile": null,
+    "main.py": null,
+    "readme.md": null,
+    "requirements.txt": null
+}
