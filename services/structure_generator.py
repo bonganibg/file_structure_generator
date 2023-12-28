@@ -17,6 +17,6 @@ class StructureGenerator():
                 self.generate_component(path, key)
             else:
                 self.generate_component(path, key)
-                self.generate_folder_structure(f"{path}/{key}", structure_dict[key])
+                self.generate_folder_structure(f"{path}/{key}", structure_dict[key])            
 
     

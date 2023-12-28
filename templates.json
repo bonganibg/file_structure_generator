@@ -29,7 +29,7 @@
                 "popup.html": null,
                 "options.html": null
             },
-            "scripts": {
+            "scripts/": {
                 "content.js": null,
                 "background.js": null                
             }

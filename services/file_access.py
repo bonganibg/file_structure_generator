@@ -12,17 +12,7 @@ class FileAccess:
         os.mkdir(f"{path}/{folder_name}")
 
 
-    def create_file(self, path: str, file_name: str):
-        '''
-        Create the file structure
-
-        Params: 
-            path: The path to the folder
-            file_name: The name of the file to create 
-
-        Returns:
-            None 
-        '''
+    def create_file(self, path: str, file_name: str):        
         with open(f"{path}/{file_name}", "w") as file:
             file.write("")
 
