@@ -1,72 +1,50 @@
 import os 
 from typing import List
+from services.file_access import FileAccess
+from services.structure_generator import StructureGenerator
 
 '''
-Step 1: Basics functionlaity 
+Step 3: Advanced command line tool
 '''
 
-# Create a dictionary with our file structure 
-file_structure = {
-    "src/": {
-        "models/": None,
-        "routes/": None,
-        "services/": None,
-        "app.py": None
-    },
-    ".gitignore": None,
-    "dockerfile": None,
-    "main.py": None,
-    "readme.md": None,
-    "requirements.txt": None
-}
+def display_options(options: List[str]):
 
-def create_folder(path: str, folder_name: str):
-    '''
-    Create the folder structure
+    for i, option in enumerate(options):
+        print(f"O {option}")
 
-    Params: 
-        path: The path to the folder
-        folder_name: The name of the folder to create 
-
-    Returns:
-        None 
-    '''
-
-    # Make sure that the folder does not exist already
-    if os.path.exists(f"{path}/{folder_name}"):
-        return
+def check_user_input():
+    # Get the input based on the arguments that the user passed when running the application
     
-    os.mkdir(f"{path}/{folder_name}")
+
+if __name__ in "__main__:":
+    TEMPLATES_PATH = "templates.json"
+
+    file_access = FileAccess()
+    structure_generator = StructureGenerator(file_access)
 
 
-def create_file(path: str, file_name: str):
-    '''
-    Create the file structure
+    # Load the templates data
+    templates = file_access.get_templates(TEMPLATES_PATH)
 
-    Params: 
-        path: The path to the folder
-        file_name: The name of the file to create 
+    # Get the users template choice 
+    display_options(templates.keys())
+    template_choice = input("Enter your choice: ")
 
-    Returns:
-        None 
-    '''
-    with open(f"{path}/{file_name}", "w") as file:
-        file.write("")
+    # Check if the choice is valid
+    if (template_choice not in templates.keys()):
+        print("Invalid choice")
+        exit()
 
-def generate_component(path: str, name: str):
-    if name[-1] == "/":
-        create_folder(path, name)
-    else: 
-        create_file(path, name)
+    # Get the template data
+    chosen_template = templates[template_choice]
 
-def generate_folder_structure(path: str, structure_dict: dict):
-    for key in structure_dict:        
-        if (structure_dict[key] == None):
-            generate_component(path, key)
-        else:
-            generate_component(path, key)
-            generate_folder_structure(f"{path}/{key}", structure_dict[key])
+    # Get the location of the project
+    directory = input("Enter the directory of the project: ")
+    project_name = input("Enter the name of the project: ")
+    
+    # Create the project folder
+    file_access.create_folder(directory, project_name)
+    
+    # Generate the folder structure
+    structure_generator.generate_folder_structure(f"{directory}/{project_name}", chosen_template)
 
-if __name__ in "__main__::":
-    create_folder('.', 'my_project')
-    generate_folder_structure("./my_project", file_structure)
