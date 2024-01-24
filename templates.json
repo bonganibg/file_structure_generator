@@ -1,0 +1,39 @@
+{
+    "fastapi": {
+        "src/": {
+            "models/": null,
+            "routes/": null,
+            "services/": null,
+            "app.py": null
+        },
+        ".gitignore": null,
+        "dockerfile": null,
+        "main.py": null,
+        "readme.md": null,
+        "requirements.txt": null
+    },
+    "nodejs": {
+        "src/":{
+            "app.js": null,
+            "models/": null,
+            "routes/": null,
+            "services/": null
+        },
+        "server.js": null,
+        "package.json": null,
+        "readme.md": null        
+    },
+    "chrome-extension": {
+        "src/": {
+            "html": {
+                "popup.html": null,
+                "options.html": null
+            },
+            "scripts/": {
+                "content.js": null,
+                "background.js": null                
+            }
+        },
+        "manifest.json": null
+    }
+}
